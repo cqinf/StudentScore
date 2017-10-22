@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	
+	<!-- 设置系统参数 -->
+	<constant name="struts.devMode" value="true"/>
+	<constant name="struts.ui.theme" value="simple"/>
+
+	<!-- 设置Action -->
+	<package name="mytest" extends="json-default">
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="stuAction_*" method="{1}" class="stuAction">
+			<result name="endAdd" type="redirect">${pageContext.request.contextPath}/pages/addStu.jsp?message=${message}</result>
+			<result name="anStu">${pageContext.request.contextPath}/pages/updateStu.jsp</result>
+			<result name="showStu">${pageContext.request.contextPath}/pages/showStu.jsp</result>
+			<result name="success" type="redirectAction">${pageContext.request.contextPath}stuAction_findStuList?message=${message}</result>
+		</action>
+		
+		<action name="scoreAction_*" method="{1}" class="scoreAction">
+			<result name="beginAdd">${pageContext.request.contextPath}/pages/addScore.jsp</result>
+			<result name="endAdd" type="redirectAction">${pageContext.request.contextPath}scoreAction_findStuList?message=${message}</result>
+			<result name="showScore" type="json">
+				<param name="includeProperties">sList.*</param>
+			</result>
+		</action>
+	</package>
+</struts>
+
+
+
+
+
